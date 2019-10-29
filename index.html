@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Electron js app</title>
+</head>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+<style type="text/css">
+	body{
+		padding:150px;
+	}
+	canvas#myChart.chartjs-render-monitor{
+		display: block;
+    	width: 900px !important;
+    	height: 500px !important;
+	}
+</style>
+<body>
+	<!-- <h1 id="activity"></h1> -->
+
+<table class="ui selectable olive table">
+  <thead>
+    <tr>
+      <th><center>Current Activity</center></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id = "activity"></td>
+    </tr>
+  </tbody>
+</table>
+<center>
+<canvas id="myChart"></canvas>
+</center>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script type="text/javascript">
+
+	const fs = require("fs")
+	
+	// function myfunction(){
+	// 	fs.readFile('text.txt','utf-8', (err, data) => {
+	// 	  if (err) throw err;
+	// 	  document.getElementById('activity').innerHTML = data
+	// 	});
+	// 	setTimeout(myfunction, 5000);
+	// }
+	// myfunction()
+	
+	var i = 0
+	labels = []
+	data = []
+	fs.watchFile('text.txt', (curr, prev) => {
+		fs.readFile('text.txt','utf-8', (err, activityData) => {
+		  if (err) throw err;
+		  document.getElementById('activity').innerHTML = ("<center><h5>"+activityData+"</h5></center>")
+		  if(activityData == "sitting"){
+	  		console.log(activityData)
+	  		labels.push(i)
+	  		data.push(1)
+	  		i = i + 2
+	  	}
+	  	if(activityData == "standing"){
+	  		console.log(activityData)
+
+	  		labels.push(i)
+	  		data.push(2)
+	  		i = i + 2
+	  	}
+	  	if(activityData == "walking"){
+	  		console.log(activityData)
+	  		
+	  		labels.push(i)
+	  		data.push(3)
+	  		i = i + 2
+	  	}
+		});
+
+	});
+
+var ctx = document.getElementById('myChart').getContext('2d');
+
+
+const interval = setInterval(function() {
+   var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Activity',
+            data: data,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+ }, 2000);
+</script>
+</body>
+</html>

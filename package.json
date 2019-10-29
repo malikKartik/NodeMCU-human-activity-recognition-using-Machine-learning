@@ -1,0 +1,16 @@
+{
+	"name": "initial-app",
+	"version": "0.1.0",
+	"main": "main.js",
+	"scripts": {
+		"start": "electron ."
+	},
+	"devDependencies": {
+		"browserify": "^16.5.0",
+		"electron": "^6.0.12",
+		"electron-packager": "^14.0.6"
+	},
+	"dependencies": {
+		"python-shell": "^1.0.8"
+	}
+}
