@@ -13,3 +13,6 @@ features calculated on nodeMCU(configered with gy87 or gy521) is then send to pc
 7)Now run the command "npm start".<br>
 
 (once you have the IP of nodeMCU you can connect the device to just the power source)
+
+<h3>For more information about the project refer to the branch v1_readme of this repository.</h3>
+<h3>For any help feel free to mail me</h3>
